@@ -12,60 +12,65 @@ public class GameOfLife {
      */
     protected char alive = '@';
     protected char dead = '.';
-    protected char[][] grid;
+    protected char[][] board;
 
     /**
      * Constructor
-     * @param grid the initial grid
+     * @param board the initial board
      */
-    public GameOfLife(char[][] grid){
-        this.grid = grid;
+    public GameOfLife(char[][] board){
+        this.board = board;
     }
 
     /**
-     * Getter for grid
+     * Getter for board
      */
-    public char[][] getGrid(){
-        return this.grid;
+    public char[][] getBoard(){
+        return this.board;
     }
 
     /**
-     * Updates the grid according to the 3 rules
+     * Updates the board according to the 3 rules
      */
     public void update(){
+        for (int i = 0; i < board.length; i++){
 
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        char[][] initialGrid =
+        // Define the starting board
+        char[][] initialBoard =
                 {
                         {'@', '.', '.', '.', '.', '.', '.', '.'},
-                        {'@', '.', '@', '@', '.', '@', '.', '.'},
-                        {'@', '.', '.', '@', '.', '@', '@', '.'},
+                        {'@', '.', '@', '.', '@', '.', '.', '.'},
+                        {'.', '.', '.', '@', '@', '.', '.', '.'},
+                        {'.', '.', '.', '@', '.', '.', '.', '.'},
                         {'.', '.', '.', '.', '.', '.', '.', '.'},
-                        {'.', '.', '@', '@', '@', '.', '.', '.'},
-                        {'.', '.', '@', '@', '.', '.', '.', '.'},
-                        {'.', '.', '.', '.', '.', '.', '@', '.'},
-                        {'.', '.', '.', '.', '.', '.', '@', '.'}
+                        {'@', '@', '.', '.', '.', '.', '.', '.'},
+                        {'.', '@', '.', '.', '.', '.', '.', '.'},
+                        {'.', '.', '.', '.', '.', '.', '.', '.'}
                 };
 
-        GameOfLife Life = new GameOfLife(initialGrid);
+        GameOfLife Life = new GameOfLife(initialBoard);
 
         // Main loop
         while (true){
-            // Print the grid
+            char[][] curBoard = Life.getBoard();
+            // Print the board
             // for each row:
-            for (int i = 0; i < initialGrid.length; i++){
+            for (int i = 0; i < curBoard.length; i++){
                 // concatenate every character in the row and then print it all on one line
                 String row = "";
-                for (int j = 0; j < initialGrid[i].length; j++){
-                    row = row + initialGrid[i][j] + " ";
+                for (int j = 0; j < curBoard[i].length; j++){
+                    row = row + curBoard[i][j] + " ";
                 }
                 System.out.println(row);
             }
 
-            // Wait a second before updating board
+            // Wait for some time before updating board
             Thread.sleep(2000);
+            System.out.println("\n\n\n\n");
             Life.update();
         }
     }

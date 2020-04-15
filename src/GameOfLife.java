@@ -31,13 +31,38 @@ public class GameOfLife {
 
     /**
      * Updates the board according to the 3 rules
+     * analysis: Worst case time complexity is O(8n^2) = O(n^2).
      */
     public void update(){
         for (int i = 0; i < board.length; i++){
             for (int j = 0; j < board[i].length; j++){
+                // create an integer array of neighbours with either 0 or 1
                 int[] neighbours = getNeighbours(i, j);
+                // sum the array (This represents the number of alive neighbours)
+                int sum = arraySum(neighbours);
+                // Rule1 does not need to be accounted for since that does not change the board
+                // Rule2:
+                if (board[i][j] == dead && sum == 3){
+                    board[i][j] = alive;
+                }
+                // Rule3:
+                else{
+                    board[i][j] = dead;
+                }
             }
         }
+    }
+
+    /**
+     * Sums the contents of an integer array and returns the answer as an integer
+     * @param arr the array to be summed
+     */
+    public int arraySum(int[] arr){
+        int sum = 0;
+        for (int i=0; i < arr.length; i++){
+            sum = sum + arr[i];
+        }
+        return sum;
     }
 
     /**

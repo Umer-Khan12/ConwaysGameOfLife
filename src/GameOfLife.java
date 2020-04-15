@@ -40,9 +40,12 @@ public class GameOfLife {
                 int[] neighbours = getNeighbours(i, j);
                 // sum the array (This represents the number of alive neighbours)
                 int sum = arraySum(neighbours);
-                // Rule1 does not need to be accounted for since that does not change the board
+                // Rule1:
+                if (board[i][j] == alive && (sum == 2 || sum == 3)){
+                    board[i][j] = alive;
+                }
                 // Rule2:
-                if (board[i][j] == dead && sum == 3){
+                else if (board[i][j] == dead && sum == 3){
                     board[i][j] = alive;
                 }
                 // Rule3:

@@ -80,16 +80,58 @@ public class GameOfLife {
         if (i == board.length - 1){
             // If the cell is in the bottom left
             if (j == 0){
-
+                neighbours[0] = convertToInt(board[i-1][j]);
+                neighbours[1] = convertToInt(board[i-1][j+1]);
+                neighbours[2] = convertToInt(board[i][j+1]);
+                return neighbours;
             }
             // If the cell is in the bottom right
-            if (j == board[i].length - 1){
-
+            else if (j == board[i].length - 1){
+                neighbours[0] = convertToInt(board[i][j-1]);
+                neighbours[1] = convertToInt(board[i-1][j]);
+                neighbours[2] = convertToInt(board[i-1][j-1]);
+                return neighbours;
             }
             // If the cell is in the middle of the bottom row
             else{
-
+                neighbours[0] = convertToInt(board[i][j-1]);
+                neighbours[1] = convertToInt(board[i][j+1]);
+                neighbours[2] = convertToInt(board[i-1][j-1]);
+                neighbours[3] = convertToInt(board[i-1][j]);
+                neighbours[4] = convertToInt(board[i-1][j+1]);
+                return neighbours;
             }
+        }
+        // If the cell is in the left column
+        // Ignore tl, tr, bl, br cases since those are covered above
+        if (j==0 && i != 0 && i != board.length - 1){
+            neighbours[0] = convertToInt(board[i-1][j]);
+            neighbours[1] = convertToInt(board[i-1][j+1]);
+            neighbours[2] = convertToInt(board[i][j+1]);
+            neighbours[3] = convertToInt(board[i+1][j+1]);
+            neighbours[4] = convertToInt(board[i+1][j]);
+            return neighbours;
+        }
+        // If the cell is in the right column
+        if (j == board[i].length-1 && i != 0 && i != board.length - 1){
+            neighbours[0] = convertToInt(board[i-1][j]);
+            neighbours[1] = convertToInt(board[i-1][j-1]);
+            neighbours[2] = convertToInt(board[i][j-1]);
+            neighbours[3] = convertToInt(board[i+1][j-1]);
+            neighbours[4] = convertToInt(board[i+1][j]);
+            return neighbours;
+        }
+        // If the cell has all 8 possible neighbours
+        else{
+            neighbours[0] = convertToInt(board[i-1][j-1]);
+            neighbours[1] = convertToInt(board[i-1][j]);
+            neighbours[2] = convertToInt(board[i-1][j+1]);
+            neighbours[3] = convertToInt(board[i][j-1]);
+            neighbours[4] = convertToInt(board[i][j+1]);
+            neighbours[5] = convertToInt(board[i+1][j-1]);
+            neighbours[6] = convertToInt(board[i+1][j]);
+            neighbours[7] = convertToInt(board[i+1][j+1]);
+            return neighbours;
         }
     }
 

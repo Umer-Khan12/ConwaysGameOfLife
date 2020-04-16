@@ -36,9 +36,25 @@ public class GameOfLife {
         // for each cell
         for (int i = 0; i < board.length; i++){
             for (int j = 0; j < board[i].length; j++){
+                int currentCell = board[i][j];
                 // number of alive neighbours
                 int aliveNeighbours = getNeighbours(i, j);
-                System.out.println("Sum for i=" + i + " and j=" + j + ": " + aliveNeighbours);
+                if (currentCell == alive){
+                    System.out.println(aliveNeighbours);
+                }
+                // Rules of life:
+                if (currentCell == alive && (aliveNeighbours == 2 || aliveNeighbours == 3)){
+                    board[i][j] = alive;
+                }
+                else if (currentCell == alive && aliveNeighbours < 2){
+                    board[i][j] = dead;
+                }
+                else if (currentCell == alive && aliveNeighbours > 3){
+                    board[i][j] = dead;
+                }
+                else if (currentCell == dead && aliveNeighbours == 3){
+                    board[i][j] = alive;
+                }
             }
         }
     }
@@ -51,7 +67,6 @@ public class GameOfLife {
      */
     public int getNeighbours(int i, int j){
         int neighbours = 0;
-        char currentCell = board[i][j];
         // Ignore the edges of the board and loop through the 3x3 grid within the board
         // that corresponds to the cell and its neighbours.
         if (i != 0 && i != board.length-1 && j != 0 && j != board[i].length-1){
@@ -66,7 +81,7 @@ public class GameOfLife {
         }
         // If the cell we were checking for neighbours is alive then we counted an extra
         // neighbour in the above loop so we should subtract 1
-        if (currentCell == alive){
+        if (board[i][j] == alive){
             neighbours -= 1;
         }
         return neighbours;
@@ -87,6 +102,7 @@ public class GameOfLife {
                 };
 
         GameOfLife Life = new GameOfLife(initialBoard);
+        System.out.println("Initial Board:");
 
         // Current generation
         int gen = 1;
